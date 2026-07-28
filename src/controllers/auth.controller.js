@@ -203,30 +203,24 @@ export async function checkCodePass(req , res) {
 
 
 
-export async function resetPassword(req , res) {
-
+export async function resetPassword(req, res) {
   try {
+    const { password, email } = req.body;
 
-
-    const {password , email} = req.body
-
-    const result = await authServices.resetPasswordServices(password , email)
+    const result = await authServices.resetPasswordServices(password, email);
 
     res.status(200).json({
-      success:true,
-      message:"reset password success",
-      step:"password"
-    })
-    
-  } catch (error) {
-  console.log("RESET ERROR:", error);
+      success: true,
+      message: "reset password success",
+      step: "password"
+    });
 
-  res.status(500).json({
-    success:false,
-    message:error.message || error
-  })
-}
-    
+  } catch (error) {
+    console.log("RESET ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message || "Unknown error"
+    });
   }
-  
 }
