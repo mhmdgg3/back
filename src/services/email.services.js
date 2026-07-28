@@ -2,7 +2,7 @@ import transporter from "../config/mail.js";
 
 export async function sendVerificationEmail(email, code) {
   await transporter.sendMail({
-    from: process.env.EMAL_USER,
+    from: process.env.EMAIL_USER,
     to: email,
     subject: "Verify your email",
     html: `
@@ -17,7 +17,7 @@ export async function sendVerificationEmail(email, code) {
 
 export async function sendVerificationPassword(email, code) {
   await transporter.sendMail({
-    from: process.env.EMAL_USER,
+    from: process.env.EMAIL_USER,
     to: email,
     subject: "Password Reset Code",
     html: `
