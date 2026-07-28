@@ -77,7 +77,7 @@ export async function saveVerificationCodeController(req, res) {
       message: error.message,
     });
   }
-  return result;
+
 }
 
 export async function verifyEmailController(req, res) {
