@@ -1,23 +1,22 @@
-export async function sendVerificationEmail(email, code) {
+import nodemailer from "nodemailer";
 
-  try {
-    await transporter.verify();
-    console.log("MAIL CONNECTION OK");
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "EXISTS" : "MISSING");
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "Verify your email",
-      html: `
-        <h2>Email Verification</h2>
-        <h1>${code}</h1>
-      `,
-    });
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
-    console.log("EMAIL SENT");
-
-  } catch (error) {
-    console.log("EMAIL SEND ERROR:", error);
-    throw error;
+transporter.verify((error) => {
+  if (error) {
+    console.log("MAIL ERROR:", error);
+  } else {
+    console.log("MAIL READY");
   }
-}
+});
+
+export default transporter;
